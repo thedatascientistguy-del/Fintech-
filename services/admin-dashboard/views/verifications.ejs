@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifications - Fraud Detection</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+        .header { background: #2c3e50; color: white; padding: 20px; }
+        .header h1 { font-size: 24px; }
+        .nav { background: #34495e; padding: 15px; }
+        .nav a { color: white; text-decoration: none; margin-right: 20px; }
+        .nav a:hover { text-decoration: underline; }
+        .container { padding: 30px; max-width: 1400px; margin: 0 auto; }
+        table { width: 100%; background: white; border-collapse: collapse; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #34495e; color: white; }
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+        .badge.success { background: #27ae60; color: white; }
+        .badge.failed { background: #e74c3c; color: white; }
+        .badge.pending { background: #f39c12; color: white; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🛡️ FinTech Fraud Detection Dashboard</h1>
+    </div>
+    <div class="nav">
+        <a href="/">Dashboard</a>
+        <a href="/transactions">Transactions</a>
+        <a href="/verifications">Verifications</a>
+    </div>
+    <div class="container">
+        <h2 style="margin-bottom: 20px;">Verification Logs</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Event</th>
+                    <th>Transaction ID</th>
+                    <th>Customer ID</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% verifications.forEach(v => { %>
+                <tr>
+                    <td><%= new Date(v.timestamp).toLocaleString() %></td>
+                    <td><%= v.event %></td>
+                    <td><%= v.data.transactionId %></td>
+                    <td><%= v.data.customerId %></td>
+                    <td>
+                        <% if (v.event === 'verification_success') { %>
+                            <span class="badge success">Success</span>
+                        <% } else if (v.event === 'verification_failed_blocked') { %>
+                            <span class="badge failed">Blocked</span>
+                        <% } else { %>
+                            <span class="badge pending">Initiated</span>
+                        <% } %>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

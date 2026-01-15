@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions - Fraud Detection</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+        .header { background: #2c3e50; color: white; padding: 20px; }
+        .header h1 { font-size: 24px; }
+        .nav { background: #34495e; padding: 15px; }
+        .nav a { color: white; text-decoration: none; margin-right: 20px; }
+        .nav a:hover { text-decoration: underline; }
+        .container { padding: 30px; max-width: 1400px; margin: 0 auto; }
+        table { width: 100%; background: white; border-collapse: collapse; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #34495e; color: white; }
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+        .badge.high { background: #e74c3c; color: white; }
+        .badge.medium { background: #f39c12; color: white; }
+        .badge.low { background: #27ae60; color: white; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🛡️ FinTech Fraud Detection Dashboard</h1>
+    </div>
+    <div class="nav">
+        <a href="/">Dashboard</a>
+        <a href="/transactions">Transactions</a>
+        <a href="/verifications">Verifications</a>
+    </div>
+    <div class="container">
+        <h2 style="margin-bottom: 20px;">Recent Transactions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Transaction ID</th>
+                    <th>Tenant</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% transactions.forEach(tx => { %>
+                <tr>
+                    <td><%= new Date(tx.timestamp).toLocaleString() %></td>
+                    <td><%= tx.data.transactionId %></td>
+                    <td><%= tx.data.tenantId %></td>
+                    <td>PKR <%= tx.data.amount %></td>
+                    <td><span class="badge low">Submitted</span></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
